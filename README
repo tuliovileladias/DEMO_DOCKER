@@ -1,0 +1,7 @@
+POC para demosntração Docker 
+
+(Docker, Dockerfile e Docker-Compose)
+
+Comandos:
+docker-compose build
+docker-compose up

@@ -1,0 +1,19 @@
+# Imagem base
+FROM node:8
+
+MAINTAINER Tulio Dias
+
+# Variavel de ambiente
+ENV VAR_TEST=inatel
+
+# Copiar diretorio local /mosca para o container
+# Os comandos abaixo são executados no build do container
+COPY ./mosca /app
+WORKDIR /app
+RUN npm install
+
+# Comando executado ao iniciar o container
+CMD ["npm", "start"]
+
+#Expondo a porta 1883 - Não é exposto de forma direta para o host
+EXPOSE 1883

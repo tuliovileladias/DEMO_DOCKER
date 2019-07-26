@@ -1,0 +1,38 @@
+# __author__ = "Tulio Dias"
+# __copyright__ = "Copyright 2019, Inatel Competence Center"
+# __credits__ = "Inatel"
+# __license__ = "MIT"
+# __maintainer__ = "Tulio Dias"
+# __email__ = "tuliodias@inatel.br"
+version: '3.0'
+services:
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: inatel
+      ME_CONFIG_BASICAUTH_PASSWORD: Inatel2019!
+      ME_CONFIG_MONGODB_PORT: 27017
+    links:
+      - mongo
+  
+  mongo:
+    image: mongo
+    hostname: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./local_DB:/data/db
+
+  mosca:
+    build: ./Mosca
+    ports:
+      - 1883:1883
+  
+  mqtt_client_py:
+    build: ./mqtt-client-py
+    depends_on:
+      - mosca
+      - mongo
+
